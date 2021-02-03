@@ -9,9 +9,9 @@ const app = express();
 const db = require("./models");
 const Ticket = db.ticket;
 const Client = db.client;
-db.sequelize.sync({ force: false }).then(() => {
+db.sequelize.sync({ force: true }).then(() => {
   //console.log("Drop and re-sync db.");
-  // initial();
+  initial();
 });
 
 var corsOptions = {
@@ -46,33 +46,33 @@ require("./routes/ticket.routes")(app);
 // require("./routes/restaurant.routes")(app);
 // require("./routes/menu.routes")(app);
 
-// function initial() {
+function initial() {
 
 
-//   for (let i = 0; i <= 10; i++) {
-//     Ticket.create(
-//       {
-//         name_employed: "name" + i,
-//         title: "title " + i,
-//         description: "desc" + i,
-//         process: "proceso" + i,
-//         status: i,
-//         client: {
-//           name: "Generico" + i,
-//           token: jwt.sign(i + 1, process.env.Tickets_Secret_Key)
-//         }
-//       }, {
-//       include: [{
-//         model: Client,
-//         as: "client"
-//       }
-//       ]
-//     }
-//     )
+  for (let i = 0; i <= 10; i++) {
+    Ticket.create(
+      {
+        name_employed: "name" + i,
+        title: "title " + i,
+        description: "desc" + i,
+        process: "proceso" + i,
+        status: i,
+        client: {
+          name: "Generico" + i,
+          token: jwt.sign(i + 1, process.env.Tickets_Secret_Key)
+        }
+      }, {
+      include: [{
+        model: Client,
+        as: "client"
+      }
+      ]
+    }
+    )
 
 
-//   }
-// }
+  }
+}
 // User.destroy({ truncate: { cascade: true } });
 // Group.destroy({ truncate: { cascade: true } });
 // Restaurant.destroy({ truncate: { cascade: true } });
