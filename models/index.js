@@ -23,7 +23,7 @@ db.sequelize = sequelize;
 //new models GRAABIT
 db.client = require("./client.model")(sequelize, Sequelize);
 db.ticket = require("./ticket.model")(sequelize, Sequelize);
-
+db.developer = require("./developers.model")(sequelize, Sequelize);
 
 
 //new realtionships Tickets ADN
