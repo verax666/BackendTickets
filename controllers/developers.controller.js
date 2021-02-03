@@ -22,6 +22,31 @@ const getPagingData = (data, page, limit) => {
     return { totalItems, tickets, totalPages, currentPage };
 };
 
+exports.create = (req, res) => {
+    // Validate request
+    //console.log(req.body);
+    if (!req.body.title || !req.body.process) {
+        res.status(440).send({
+            message: "Content can not be empty!"
+        });
+        return;
+    }
+
+    // Save Order in the database
+    Developer.create(req.body, {
+    })
+        .then(developer_created => {
+            console.log(developer_created);
+            res.send(developer_created);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while creating the Video."
+            });
+        });
+};
+
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
