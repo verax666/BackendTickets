@@ -16,7 +16,7 @@ db.sequelize.sync({ force: true }).then(() => {
 
 var corsOptions = {
   //origin: "https://checkmat.adn-apps.com"w
-  origin: "http://localhost:3000"
+  origin: "https://pure-atoll-22967.herokuapp.com"
 };
 
 app.use(cors(corsOptions));
