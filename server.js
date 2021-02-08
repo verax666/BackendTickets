@@ -11,9 +11,9 @@ const { client } = require("./models");
 const Ticket = db.ticket;
 const Client = db.client;
 const Status = db.statuscatalog;
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   //console.log("Drop and re-sync db.");
-  initial();
+  // initial();
 });
 
 let local = "http://localhost:3000";
