@@ -7,16 +7,21 @@ dotenv.config();
 const app = express();
 
 const db = require("./models");
+const { client } = require("./models");
 const Ticket = db.ticket;
 const Client = db.client;
+const Status = db.statuscatalog;
 db.sequelize.sync({ force: true }).then(() => {
   //console.log("Drop and re-sync db.");
   initial();
 });
 
+let local = "http://localhost:3000";
+let haroku = "https://examplet4t.000webhostapp.com";
+// origin: ""
+
 var corsOptions = {
-  //origin: "https://checkmat.adn-apps.com"w
-  origin: "https://examplet4t.000webhostapp.com"
+  origin: haroku
 };
 
 app.use(cors(corsOptions));
@@ -40,38 +45,66 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to my application in DOCKER." });
 });
 //routes
+require("./routes/developer.routes")(app)
 require("./routes/ticket.routes")(app);
+require("./routes/client.routes")(app)
+
 // require('./routes/auth.routes')(app);
 // require('./routes/order.routes')(app);
 // require("./routes/restaurant.routes")(app);
 // require("./routes/menu.routes")(app);
 
-function initial() {
-
-
-  for (let i = 0; i <= 10; i++) {
-    Ticket.create(
-      {
-        name_employed: "name" + i,
-        title: "title " + i,
-        description: "desc" + i,
-        process: "proceso" + i,
-        status: i,
-        client: {
-          name: "Generico" + i,
-          token: jwt.sign(i + 1, process.env.Tickets_Secret_Key)
-        }
-      }, {
-      include: [{
-        model: Client,
-        as: "client"
-      }
-      ]
+async function initial() {
+  await Status.create(
+    {
+      name: "Generado",
     }
-    )
-
-
+  )
+  await Status.create(
+    {
+      name: "en Revision",
+    }
+  )
+  await Status.create(
+    {
+      name: "en Proceso",
+    }
+  )
+  await Status.create(
+    {
+      name: "Solucionado",
+    }
+  )
+  await Client.create({
+    name: "Fabeva",
+    token: jwt.sign(1, process.env.Tickets_Secret_Key)
   }
+  )
+  await Client.create({
+    name: "UPN",
+    token: jwt.sign(2, process.env.Tickets_Secret_Key)
+  }
+  )
+  await Client.create({
+    name: "Concremovil",
+    token: jwt.sign(3, process.env.Tickets_Secret_Key)
+  }
+  )
+  await Client.create({
+    name: "Promobell",
+    token: jwt.sign(4, process.env.Tickets_Secret_Key)
+  }
+  )
+  await Client.create({
+    name: "La Bonita",
+    token: jwt.sign(5, process.env.Tickets_Secret_Key)
+  }
+  )
+  await Client.create({
+    name: "Petrocosta",
+    token: jwt.sign(6, process.env.Tickets_Secret_Key)
+  }
+  )
 }
 // User.destroy({ truncate: { cascade: true } });
 // Group.destroy({ truncate: { cascade: true } });

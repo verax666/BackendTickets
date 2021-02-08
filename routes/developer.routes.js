@@ -1,5 +1,5 @@
 module.exports = app => {
-    const developer = require("../controllers/developer.controller.js");
+    const developer = require("../controllers/developer.controller");
 
     var router = require("express").Router();
 
@@ -25,8 +25,7 @@ module.exports = app => {
 
     // //OUTPUT ROUTES
     // // Retrieve all orders
-    router.get("/", developer.authenticateToken, developer.findAll);
-    router.get("/get/", developer.findAllAdmin);
+    router.get("/", developer.findAll);
 
 
     // // Retrieve all orders

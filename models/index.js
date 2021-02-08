@@ -5,7 +5,17 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
   operatorsAliases: false,
-
+  timezone: "-06:00",
+  dialectOptions: {
+    useUTC: false, //for reading from database
+    dateStrings: true,
+    typeCast: function (field, next) { // for reading from database
+      if (field.type === 'DATETIME') {
+        return field.string()
+      }
+      return next()
+    },
+  },
   pool: {
     max: dbConfig.pool.max,
     min: dbConfig.pool.min,
@@ -23,8 +33,8 @@ db.sequelize = sequelize;
 //new models GRAABIT
 db.client = require("./client.model")(sequelize, Sequelize);
 db.ticket = require("./ticket.model")(sequelize, Sequelize);
-db.developer = require("./developers.model")(sequelize, Sequelize);
-
+db.developer = require("./developer.model")(sequelize, Sequelize);
+db.statuscatalog = require("./statuscatalog.model")(sequelize, Sequelize)
 
 //new realtionships Tickets ADN
 
@@ -33,6 +43,12 @@ db.ticket.belongsTo(db.client, {
   foreignKey: "clientId",
   as: "client"
 });
+
+db.ticket.belongsTo(db.statuscatalog,
+  {
+    foreignKey: "statusId",
+    as: "status"
+  });
 
 
 

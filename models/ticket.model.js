@@ -12,10 +12,6 @@ module.exports = (sequelize, Sequelize) => {
         description: {
             type: Sequelize.STRING
         },
-        status: {
-            type: Sequelize.INTEGER
-        }
-
     }, { paranoid: true });
 
     return Ticket;

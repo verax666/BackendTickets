@@ -7,8 +7,8 @@ module.exports = app => {
     // Create a new order
     router.post("/", ticket.create);
 
-    // // Update a order with id
-    // router.put("/:id", ticket.update);
+    // Update a order with id
+    router.put("/:id", ticket.update);
 
     // // Delete a order with id
     // router.delete("/:id", ticket.delete);
