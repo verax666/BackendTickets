@@ -48,6 +48,7 @@ app.get("/", (req, res) => {
 require("./routes/developer.routes")(app)
 require("./routes/ticket.routes")(app);
 require("./routes/client.routes")(app)
+require("./routes/statuscatalog.routes")(app)
 
 // require('./routes/auth.routes')(app);
 // require('./routes/order.routes')(app);
