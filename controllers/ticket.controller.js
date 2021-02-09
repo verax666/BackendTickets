@@ -77,7 +77,11 @@ exports.findAll = (req, res) => {
     const { id_client, page, size } = req.query;
     var condition = id_client ? { clientId: id_client } : null;
     const { limit, offset } = getPagination(page, size);
-    Ticket.findAndCountAll({ where: condition, limit, offset })
+    Ticket.findAndCountAll({
+        where: condition, include: [{
+            model: db.client, as: "client",
+        }, { model: db.statuscatalog, as: "status" }], limit, offset
+    })
         .then(tickets => {
             const response = getPagingData(tickets, page, limit);
             res.json(response);
