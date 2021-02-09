@@ -21,7 +21,7 @@ let vercel = "https://systemtickets.vercel.app";
 // origin: ""
 
 var corsOptions = {
-  origin: local
+  origin: vercel
 };
 
 app.use(cors(corsOptions));
