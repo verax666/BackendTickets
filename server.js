@@ -17,7 +17,6 @@ db.sequelize.sync({ force: false }).then(() => {
 });
 
 let local = "http://localhost:3000";
-let haroku = "https://examplet4t.000webhostapp.com";
 let vercel = "https://systemtickets.vercel.app";
 // origin: ""
 

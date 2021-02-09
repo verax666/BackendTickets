@@ -44,11 +44,14 @@ db.ticket.belongsTo(db.client, {
   as: "client"
 });
 
-db.ticket.belongsTo(db.statuscatalog,
-  {
-    foreignKey: "statusId",
-    as: "status"
-  });
+
+db.statuscatalog.hasMany(db.ticket, { as: "tickets" })
+db.ticket.belongsTo(db.statuscatalog, {
+  foreignKey: "statusCatalogId",
+  as: "status"
+});
+// db.statuscatalog.hasMany(db.ticket);
+
 
 
 

@@ -48,7 +48,9 @@ exports.findOne = (req, res) => {
     const id = req.params.id;
 
     Ticket.findByPk(id, {
-        include: [{ model: Client, as: "client" }], include: [{ model: db.statuscatalog, as: "status" }]
+        include: [{
+            model: db.client, as: "client",
+        }, { model: db.statuscatalog, as: "status" }]
     })
         .then(data => {
             res.send(data);
@@ -93,8 +95,9 @@ exports.findAllAdmin = (req, res) => {
     const { limit, offset } = getPagination(page, size);
     Ticket.findAndCountAll({
         include: [{
-            model: Client, as: "client"
-        }], include: [{ model: db.statuscatalog, as: "status" }], limit, offset
+            model: db.client, as: "client",
+        }, { model: db.statuscatalog, as: "status" }]
+        , limit, offset
     })
         .then(tickets => {
             const response = getPagingData(tickets, page, limit);
