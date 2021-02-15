@@ -49,7 +49,7 @@ exports.findOne = (req, res) => {
 
 exports.findAll = (req, res) => {
     // const title = req.query.title;
-    Client.findAll()
+    Client.findAll({ include: [{ model: db.process, as: "process", include: [{ model: db.subprocess, as: "subproceso" }] }] })
         .then(dev => {
             res.json(dev);
         })

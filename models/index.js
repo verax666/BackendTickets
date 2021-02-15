@@ -35,6 +35,8 @@ db.client = require("./client.model")(sequelize, Sequelize);
 db.ticket = require("./ticket.model")(sequelize, Sequelize);
 db.developer = require("./developer.model")(sequelize, Sequelize);
 db.statuscatalog = require("./statuscatalog.model")(sequelize, Sequelize)
+db.process = require("./process.model")(sequelize, Sequelize)
+db.subprocess = require("./subproceso.model")(sequelize, Sequelize)
 
 //new realtionships Tickets ADN
 
@@ -50,6 +52,21 @@ db.ticket.belongsTo(db.statuscatalog, {
   foreignKey: "statusCatalogId",
   as: "status"
 });
+
+db.client.hasMany(db.process, { as: "process" })
+db.process.belongsTo(db.client, {
+  foreignKey: "clientId",
+  as: "client"
+});
+
+
+db.process.hasMany(db.subprocess, { as: "subproceso" })
+db.subprocess.belongsTo(db.process, {
+  foreignKey: "procesoId",
+  as: "proceso"
+});
+
+
 // db.statuscatalog.hasMany(db.ticket);
 
 

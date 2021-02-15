@@ -7,13 +7,15 @@ dotenv.config();
 const app = express();
 
 const db = require("./models");
-const { client } = require("./models");
+const { client, subprocess } = require("./models");
 const Ticket = db.ticket;
 const Client = db.client;
 const Status = db.statuscatalog;
-db.sequelize.sync({ force: false }).then(() => {
+const Process = db.process;
+const Subprocess = db.subprocess;
+db.sequelize.sync({ force: true }).then(() => {
   //console.log("Drop and re-sync db.");
-  // initial();
+  initial();
 });
 
 let local = "http://localhost:3000";
@@ -21,7 +23,7 @@ let vercel = "https://systemtickets.vercel.app";
 // origin: ""
 
 var corsOptions = {
-  origin: vercel
+  origin: local
 };
 
 app.use(cors(corsOptions));
@@ -106,6 +108,46 @@ async function initial() {
     token: jwt.sign(6, process.env.Tickets_Secret_Key)
   }
   )
+  let procesos = ["Orden de compra", "Instrucción de pago", "Liquidaciones", "Boletas"];
+  for (let i in procesos) {
+    await Process.create({
+      clientId: 1,
+      name: procesos[i]
+    }
+    )
+  }
+  let subproceso1 = ["Captura de ordenes de compra", "Autorizar OC"];
+  for (let i in procesos) {
+    await Subprocess.create({
+      procesoId: 1,
+      name: subproceso1[i]
+    }
+    )
+  }
+  let subproceso2 = ["Generar instrucción de pago", "Confirmación instrucción pago", "Autorizar instrucción pago", "Aplicar anticipos"];
+  for (let i in procesos) {
+    await Subprocess.create({
+      procesoId: 2,
+      name: subproceso2[i]
+    }
+    )
+  }
+  let subproceso3 = ["Generar liquidaciones", "Generar notas de cargo/credito", "Cancelar liquidaciones", "Cambiar fecha liquidaciones"];
+  for (let i in procesos) {
+    await Subprocess.create({
+      procesoId: 3,
+      name: subproceso3[i]
+    }
+    )
+  }
+  let subproceso4 = ["Costeo boletas sin precio", "Re-costeo de boletas", "Cancelar boletas"];
+  for (let i in procesos) {
+    await Subprocess.create({
+      procesoId: 4,
+      name: subproceso4[i]
+    }
+    )
+  }
 }
 // User.destroy({ truncate: { cascade: true } });
 // Group.destroy({ truncate: { cascade: true } });
