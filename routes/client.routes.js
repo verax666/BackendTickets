@@ -14,7 +14,7 @@ module.exports = app => {
     router.get("/", client.findAll);
     // 
 
-    router.get("/:id", client.findOne);
+    router.get("/:id", client.authenticateToken, client.findOne);
 
     app.use('/api/client', router);
 };

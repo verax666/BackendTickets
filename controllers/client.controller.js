@@ -8,6 +8,15 @@ const Client = db.client;
 // const Branch = db.branch;
 const Op = db.Sequelize.Op;
 
+exports.authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader;
+    if (token == null) return res.sendStatus(401);
+    jwt.verify(token, process.env.Tickets_Secret_Key, (err, user) => {
+        if (err) return res.sendStatus(403);
+        next();
+    })
+}
 
 
 exports.create = (req, res) => {
@@ -39,6 +48,7 @@ exports.findOne = (req, res) => {
     Client.findOne({ where: { token: token } })
         .then(data => {
             res.send(data);
+            console.log(data)
         })
         .catch(err => {
             res.status(500).send({

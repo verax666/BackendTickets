@@ -9,6 +9,9 @@ module.exports = (sequelize, Sequelize) => {
         process: {
             type: Sequelize.STRING
         },
+        subprocess: {
+            type: Sequelize.STRING
+        },
         description: {
             type: Sequelize.TEXT
         },

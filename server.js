@@ -13,17 +13,18 @@ const Client = db.client;
 const Status = db.statuscatalog;
 const Process = db.process;
 const Subprocess = db.subprocess;
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   //console.log("Drop and re-sync db.");
-  initial();
+  // initial();
 });
+
 
 let local = "http://localhost:3000";
 let vercel = "https://systemtickets.vercel.app";
 // origin: ""
 
 var corsOptions = {
-  origin: local
+  origin: vercel
 };
 
 app.use(cors(corsOptions));
@@ -51,6 +52,7 @@ require("./routes/developer.routes")(app)
 require("./routes/ticket.routes")(app);
 require("./routes/client.routes")(app)
 require("./routes/statuscatalog.routes")(app)
+require("./routes/process.routes")(app)
 
 // require('./routes/auth.routes')(app);
 // require('./routes/order.routes')(app);
@@ -108,7 +110,7 @@ async function initial() {
     token: jwt.sign(6, process.env.Tickets_Secret_Key)
   }
   )
-  let procesos = ["Orden de compra", "Instrucción de pago", "Liquidaciones", "Boletas"];
+  let procesos = ["Error de captura", "Orden de compra", "Instrucción de pago", "Liquidaciones", "Boletas"];
   for (let i in procesos) {
     await Process.create({
       clientId: 1,
@@ -116,34 +118,42 @@ async function initial() {
     }
     )
   }
-  let subproceso1 = ["Captura de ordenes de compra", "Autorizar OC"];
-  for (let i in procesos) {
+  let suberror = ["Captura Liquidaciones", "Captura Compra", "Captura IP", "Captura cotización"];
+  for (let i in suberror) {
     await Subprocess.create({
       procesoId: 1,
+      name: suberror[i]
+    }
+    )
+  }
+  let subproceso1 = ["Captura de ordenes de compra", "Autorizar OC"];
+  for (let i in subproceso1) {
+    await Subprocess.create({
+      procesoId: 2,
       name: subproceso1[i]
     }
     )
   }
   let subproceso2 = ["Generar instrucción de pago", "Confirmación instrucción pago", "Autorizar instrucción pago", "Aplicar anticipos"];
-  for (let i in procesos) {
+  for (let i in subproceso2) {
     await Subprocess.create({
-      procesoId: 2,
+      procesoId: 3,
       name: subproceso2[i]
     }
     )
   }
   let subproceso3 = ["Generar liquidaciones", "Generar notas de cargo/credito", "Cancelar liquidaciones", "Cambiar fecha liquidaciones"];
-  for (let i in procesos) {
+  for (let i in subproceso3) {
     await Subprocess.create({
-      procesoId: 3,
+      procesoId: 4,
       name: subproceso3[i]
     }
     )
   }
   let subproceso4 = ["Costeo boletas sin precio", "Re-costeo de boletas", "Cancelar boletas"];
-  for (let i in procesos) {
+  for (let i in subproceso4) {
     await Subprocess.create({
-      procesoId: 4,
+      procesoId: 5,
       name: subproceso4[i]
     }
     )
