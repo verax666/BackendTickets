@@ -21,10 +21,11 @@ db.sequelize.sync({ force: false }).then(() => {
 
 let local = "http://localhost:3000";
 let vercel = "https://systemtickets.vercel.app";
+let prod = "https://tickets.adn-apps.com/";
 // origin: ""
 
 var corsOptions = {
-  origin: vercel
+  origin: prod
 };
 
 app.use(cors(corsOptions));

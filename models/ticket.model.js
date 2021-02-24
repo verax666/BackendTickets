@@ -15,6 +15,9 @@ module.exports = (sequelize, Sequelize) => {
         description: {
             type: Sequelize.TEXT
         },
+        comments: {
+            type: Sequelize.TEXT
+        }
     }, { paranoid: true });
 
     return Ticket;
