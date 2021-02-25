@@ -25,7 +25,7 @@ let prod = "https://tickets.adn-apps.com/";
 // origin: ""
 
 var corsOptions = {
-  origin: prod
+  origin: vercel
 };
 
 app.use(cors(corsOptions));
