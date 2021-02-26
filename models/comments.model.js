@@ -1,21 +1,24 @@
 module.exports = (sequelize, Sequelize) => {
-    const Ticket = sequelize.define("ticket", {
-        name_employed: {
+    const Comment = sequelize.define("comment", {
+        Usuario: {
             type: Sequelize.STRING
         },
-        title: {
+        prevstatus: {
             type: Sequelize.STRING
         },
-        process: {
+        actualstatus: {
             type: Sequelize.STRING
         },
-        subprocess: {
+        prevcolor: {
             type: Sequelize.STRING
         },
-        description: {
+        color: {
+            type: Sequelize.STRING
+        },
+        comments: {
             type: Sequelize.TEXT
-        },
+        }
     }, { paranoid: true });
 
-    return Ticket;
+    return Comment;
 };

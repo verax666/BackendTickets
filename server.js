@@ -49,11 +49,13 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to my application in DOCKER." });
 });
 //routes
-require("./routes/developer.routes")(app)
+require("./routes/developer.routes")(app);
 require("./routes/ticket.routes")(app);
-require("./routes/client.routes")(app)
-require("./routes/statuscatalog.routes")(app)
-require("./routes/process.routes")(app)
+require("./routes/client.routes")(app);
+require("./routes/statuscatalog.routes")(app);
+require("./routes/process.routes")(app);
+require("./routes/comments.routes")(app);
+require("./routes/commentsticket.routes")(app);
 
 // require('./routes/auth.routes')(app);
 // require('./routes/order.routes')(app);
@@ -64,21 +66,25 @@ async function initial() {
   await Status.create(
     {
       name: "Generado",
+      color: "yellow"
     }
   )
   await Status.create(
     {
       name: "en Revision",
+      color: "blue"
     }
   )
   await Status.create(
     {
       name: "en Proceso",
+      color: "gray"
     }
   )
   await Status.create(
     {
       name: "Solucionado",
+      color: "green"
     }
   )
   await Client.create({

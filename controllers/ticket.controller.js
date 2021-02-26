@@ -50,7 +50,8 @@ exports.findOne = (req, res) => {
     Ticket.findByPk(id, {
         include: [{
             model: db.client, as: "client",
-        }, { model: db.statuscatalog, as: "status" }]
+        }, { model: db.statuscatalog, as: "status" },
+        { model: db.comments, as: "comments", include: [{ model: db.commentsticket, as: "commentstickets" }] },]
     })
         .then(data => {
             res.send(data);
@@ -80,7 +81,8 @@ exports.findAll = (req, res) => {
     Ticket.findAndCountAll({
         where: condition, include: [{
             model: db.client, as: "client",
-        }, { model: db.statuscatalog, as: "status" }], limit, offset
+        }, { model: db.statuscatalog, as: "status" },
+        { model: db.comments, as: "comments" }], limit, offset
     })
         .then(tickets => {
             const response = getPagingData(tickets, page, limit);
@@ -100,7 +102,8 @@ exports.findAllAdmin = (req, res) => {
     Ticket.findAndCountAll({
         include: [{
             model: db.client, as: "client",
-        }, { model: db.statuscatalog, as: "status" }]
+        }, { model: db.statuscatalog, as: "status" },
+        { model: db.comments, as: "comments" }]
         , limit, offset
     })
         .then(tickets => {
