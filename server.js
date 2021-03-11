@@ -7,7 +7,7 @@ dotenv.config();
 const app = express();
 
 const db = require("./models");
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   //console.log("Drop and re-sync db.");
   // initial();
 });
@@ -41,7 +41,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to my application in DOCKER." });
 });
 //routes
-
+require("./routes/client.routes")(app)
 // require('./routes/auth.routes')(app);
 // require('./routes/order.routes')(app);
 // require("./routes/restaurant.routes")(app);
