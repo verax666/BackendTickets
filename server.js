@@ -7,25 +7,17 @@ dotenv.config();
 const app = express();
 
 const db = require("./models");
-const { client, subprocess } = require("./models");
-const Ticket = db.ticket;
-const Client = db.client;
-const Status = db.statuscatalog;
-const Process = db.process;
-const Subprocess = db.subprocess;
-db.sequelize.sync({ force: false }).then(() => {
+db.sequelize.sync({ force: true }).then(() => {
   //console.log("Drop and re-sync db.");
   // initial();
 });
 
 
-let local = "http://localhost:3000";
-let vercel = "https://systemtickets.vercel.app";
-let prod = "https://tickets.adn-apps.com";
+let local = "localhost";
 // origin: ""
 
 var corsOptions = {
-  origin: vercel
+  origin: local
 };
 
 app.use(cors(corsOptions));
@@ -49,123 +41,11 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to my application in DOCKER." });
 });
 //routes
-require("./routes/developer.routes")(app);
-require("./routes/ticket.routes")(app);
-require("./routes/client.routes")(app);
-require("./routes/statuscatalog.routes")(app);
-require("./routes/process.routes")(app);
-require("./routes/comments.routes")(app);
-require("./routes/commentsticket.routes")(app);
 
 // require('./routes/auth.routes')(app);
 // require('./routes/order.routes')(app);
 // require("./routes/restaurant.routes")(app);
 // require("./routes/menu.routes")(app);
-
-async function initial() {
-  await Status.create(
-    {
-      name: "Generado",
-      color: "yellow"
-    }
-  )
-  await Status.create(
-    {
-      name: "en Revision",
-      color: "blue"
-    }
-  )
-  await Status.create(
-    {
-      name: "en Proceso",
-      color: "gray"
-    }
-  )
-  await Status.create(
-    {
-      name: "Solucionado",
-      color: "green"
-    }
-  )
-  await Client.create({
-    name: "Fabeva",
-    token: jwt.sign(1, process.env.Tickets_Secret_Key)
-  }
-  )
-  await Client.create({
-    name: "UPN",
-    token: jwt.sign(2, process.env.Tickets_Secret_Key)
-  }
-  )
-  await Client.create({
-    name: "Concremovil",
-    token: jwt.sign(3, process.env.Tickets_Secret_Key)
-  }
-  )
-  await Client.create({
-    name: "Promobell",
-    token: jwt.sign(4, process.env.Tickets_Secret_Key)
-  }
-  )
-  await Client.create({
-    name: "La Bonita",
-    token: jwt.sign(5, process.env.Tickets_Secret_Key)
-  }
-  )
-  await Client.create({
-    name: "Petrocosta",
-    token: jwt.sign(6, process.env.Tickets_Secret_Key)
-  }
-  )
-  let procesos = ["Error de captura", "Orden de compra", "Instrucción de pago", "Liquidaciones", "Boletas"];
-  for (let i in procesos) {
-    await Process.create({
-      clientId: 1,
-      name: procesos[i]
-    }
-    )
-  }
-  let suberror = ["Captura Liquidaciones", "Captura Compra", "Captura IP", "Captura cotización"];
-  for (let i in suberror) {
-    await Subprocess.create({
-      procesoId: 1,
-      name: suberror[i]
-    }
-    )
-  }
-  let subproceso1 = ["Captura de ordenes de compra", "Autorizar OC"];
-  for (let i in subproceso1) {
-    await Subprocess.create({
-      procesoId: 2,
-      name: subproceso1[i]
-    }
-    )
-  }
-  let subproceso2 = ["Generar instrucción de pago", "Confirmación instrucción pago", "Autorizar instrucción pago", "Aplicar anticipos"];
-  for (let i in subproceso2) {
-    await Subprocess.create({
-      procesoId: 3,
-      name: subproceso2[i]
-    }
-    )
-  }
-  let subproceso3 = ["Generar liquidaciones", "Generar notas de cargo/credito", "Cancelar liquidaciones", "Cambiar fecha liquidaciones"];
-  for (let i in subproceso3) {
-    await Subprocess.create({
-      procesoId: 4,
-      name: subproceso3[i]
-    }
-    )
-  }
-  let subproceso4 = ["Costeo boletas sin precio", "Re-costeo de boletas", "Cancelar boletas"];
-  for (let i in subproceso4) {
-    await Subprocess.create({
-      procesoId: 5,
-      name: subproceso4[i]
-    }
-    )
-  }
-}
 // User.destroy({ truncate: { cascade: true } });
 // Group.destroy({ truncate: { cascade: true } });
 // Restaurant.destroy({ truncate: { cascade: true } });

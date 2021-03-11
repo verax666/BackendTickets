@@ -32,59 +32,7 @@ db.sequelize = sequelize;
 
 //new models GRAABIT
 db.client = require("./client.model")(sequelize, Sequelize);
-db.ticket = require("./ticket.model")(sequelize, Sequelize);
-db.developer = require("./developer.model")(sequelize, Sequelize);
-db.statuscatalog = require("./statuscatalog.model")(sequelize, Sequelize);
-db.process = require("./process.model")(sequelize, Sequelize);
-db.subprocess = require("./subproceso.model")(sequelize, Sequelize);
-db.comments = require("./comments.model")(sequelize, Sequelize);
-db.commentsticket = require("./commentsticket.model")(sequelize, Sequelize);
 //new realtionships Tickets ADN
-
-db.client.hasMany(db.ticket, { as: "tickets" });
-db.ticket.belongsTo(db.client, {
-  foreignKey: "clientId",
-  as: "client"
-});
-
-
-db.statuscatalog.hasMany(db.ticket, { as: "tickets" })
-db.ticket.belongsTo(db.statuscatalog, {
-  foreignKey: "statusCatalogId",
-  as: "status"
-});
-
-db.client.hasMany(db.process, { as: "process" })
-db.process.belongsTo(db.client, {
-  foreignKey: "clientId",
-  as: "client"
-});
-
-
-db.process.hasMany(db.subprocess, { as: "subproceso" })
-db.subprocess.belongsTo(db.process, {
-  foreignKey: "procesoId",
-  as: "proceso"
-});
-
-db.ticket.hasMany(db.comments, { as: "comments" })
-db.comments.belongsTo(db.ticket, {
-  foreignKey: "ticketId",
-  as: "ticket"
-});
-
-db.comments.hasMany(db.commentsticket, { as: "commentstickets" })
-db.commentsticket.belongsTo(db.comments, {
-  foreignKey: "commentId",
-  as: "comments"
-});
-
-
-// db.statuscatalog.hasMany(db.ticket);
-
-
-
-
 //new realtionships GRAABIT
 //ORDERS
 // //  -->ORDER_DETAIL

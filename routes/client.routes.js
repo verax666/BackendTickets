@@ -4,17 +4,8 @@ module.exports = app => {
     var router = require("express").Router();
 
     //INPUT ROUTES
-    // Create a new client
+    // Create a new order
     router.post("/", client.create);
-
-    // Update a client with id
-    router.put("/:id", client.update);
-
-    // // Retrieve all orders
-    router.get("/", client.findAll);
-    // 
-
-    router.get("/:id", client.authenticateToken, client.findOne);
-
+    // Retrieve a single order with id
     app.use('/api/client', router);
 };
