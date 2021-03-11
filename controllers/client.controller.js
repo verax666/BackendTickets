@@ -3,7 +3,8 @@ const Client = db.client;
 
 // Create and Save a new Order
 exports.create = (req, res) => {
-    Ticket.create(req.body, {
+    console.log(req.body);
+    Client.create(req.body, {
     })
         .then(client_created => {
             res.send(client_created);
