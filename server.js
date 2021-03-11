@@ -13,7 +13,7 @@ db.sequelize.sync({ force: true }).then(() => {
 });
 
 
-let local = "localhost";
+let local = "http://localhost";
 // origin: ""
 
 var corsOptions = {
