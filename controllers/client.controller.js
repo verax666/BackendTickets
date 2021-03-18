@@ -1,13 +1,22 @@
 const db = require("../models");
 const Client = db.client;
-
+const TelegramBot = require('node-telegram-bot-api');
+// replace the value below with the Telegram token you receive from // @BotFather
+const token = '1653660974:AAH2xz6vudduhbrlb3udMna7rmopHRLpZCg';
 // Create and Save a new Order
+const bot = new TelegramBot(token, { polling: true });
+
 exports.create = (req, res) => {
     console.log(req.body);
     Client.create(req.body, {
     })
         .then(client_created => {
             res.send(client_created);
+            bot.on('message', (msg) => {
+                const chatId = msg.chat.id;
+                const texto = msg.text;
+                bot.sendMessage(chatId, 'Nuevo Prospecto:' + req.body.First);
+            });
         })
         .catch(err => {
             res.status(500).send({
