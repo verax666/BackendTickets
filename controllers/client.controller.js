@@ -12,11 +12,8 @@ exports.create = (req, res) => {
     })
         .then(client_created => {
             res.send(client_created);
-            bot.on('message', (msg) => {
-                const chatId = msg.chat.id;
-                const texto = msg.text;
-                bot.sendMessage(chatId, 'Nuevo Prospecto:' + req.body.First);
-            });
+
+            bot.sendMessage("1766448662", 'Nuevo Prospecto:' + req.body.First);
         })
         .catch(err => {
             res.status(500).send({
