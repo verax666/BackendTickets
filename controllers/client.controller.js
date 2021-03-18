@@ -2,7 +2,7 @@ const db = require("../models");
 const Client = db.client;
 const TelegramBot = require('node-telegram-bot-api');
 // replace the value below with the Telegram token you receive from // @BotFather
-const token = '1653660974:AAH2xz6vudduhbrlb3udMna7rmopHRLpZCg';
+const token = '1687894814:AAHi5cYJortF3Z3se_jVYiXzDrnUvda5aJU';
 // Create and Save a new Order
 const bot = new TelegramBot(token, { polling: true });
 
@@ -13,7 +13,7 @@ exports.create = (req, res) => {
         .then(client_created => {
             res.send(client_created);
             console.log("client created", client_created)
-            bot.sendMessage("1766448662", 'Nuevo Prospecto:' + req.body.first + " " + req.body.last + "\nVendedor Asignado: " + req.body.vendedor + "\nLink del Perfil:" + "http://localhost/concremovil/pantallas/detalles_prosp/");
+            bot.sendMessage("1687894814", 'Nuevo Prospecto: ' + req.body.first + "" + req.body.last + "\nVendedor Asignado: " + req.body.vendedor + "\nLink del Perfil: " + "http://localhost/concremovil/pantallas/detalles_prosp/");
         })
         .catch(err => {
             res.status(500).send({
