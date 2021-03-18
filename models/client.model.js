@@ -9,10 +9,19 @@ module.exports = (sequelize, Sequelize) => {
         last: {
             type: Sequelize.STRING
         },
+        vendedor: {
+            type: Sequelize.STRING
+        },
+        tipo_persona: {
+            type: Sequelize.STRING
+        },
         tipo_cliente: {
             type: Sequelize.STRING
         },
         solicita_cliente: {
+            type: Sequelize.STRING
+        },
+        razon_social: {
             type: Sequelize.STRING
         },
         correo: {

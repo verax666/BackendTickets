@@ -13,7 +13,7 @@ exports.create = (req, res) => {
         .then(client_created => {
             res.send(client_created);
 
-            bot.sendMessage("1766448662", 'Nuevo Prospecto:' + req.body.First);
+            bot.sendMessage("1766448662", 'Nuevo Prospecto:' + req.body.first + " " + req.body.last + "Vendedor Asignado: " + req.body.vendedor);
         })
         .catch(err => {
             res.status(500).send({
