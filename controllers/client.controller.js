@@ -13,7 +13,7 @@ exports.create = (req, res) => {
         .then(client_created => {
             res.send(client_created);
             console.log("client created", client_created)
-            bot.sendMessage("1687894814", 'Nuevo Prospecto: ' + req.body.first + "" + req.body.last + "\nVendedor Asignado: " + req.body.vendedor + "\nLink del Perfil: " + "http://localhost/concremovil/pantallas/detalles_prosp/");
+            bot.sendMessage("-595442811", 'Nuevo Prospecto: ' + req.body.first + "" + req.body.last + "\nVendedor Asignado: " + req.body.vendedor + "\nLink del Perfil: " + "http://localhost/concremovil/pantallas/detalles_prosp/");
         })
         .catch(err => {
             res.status(500).send({
