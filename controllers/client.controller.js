@@ -12,7 +12,7 @@ exports.create = (req, res) => {
     })
         .then(client_created => {
             res.send(client_created);
-            Vendedor.findByPk({ where: { id_vendedor: req.body.vendedor } }).then(res => console.log(res));
+            Vendedor.findByPk(req.body.vendedor).then(res => console.log(res));
             console.log("client created", client_created);
             var text = "Para: María De León Aguirre"
                 + "\nAsunto: Pre-alta de cliente"
