@@ -23,8 +23,10 @@ db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
       const chatId = msg.chat.id;
       const resp = match[1]; // the captured "whatever"
       // send back the matched "whatever" to the chat
-      console.log(JSON.stringify(r.id_vendedor, null, 2));
-      bot.sendMessage(chatId, "Id: " + JSON.stringify(r.id_vendedor, null, 2) + "Nombre: " + JSON.stringify(r.id_vendedor, null, 2) + "\n Porvafor Escriba /alta su id:\n Ejemplo /alta 3")
+      console.log(JSON.stringify(r, null, 2));
+      let s = JSON.stringify(r, null, 2);
+      console.log(s);
+      bot.sendMessage(chatId, "Id: " + JSON.stringify(s.id_vendedor, null, 2) + "Nombre: " + JSON.stringify(s.nombre, null, 2) + "\n Porvafor Escriba /alta su id:\n Ejemplo /alta 3")
 
     });
   });
