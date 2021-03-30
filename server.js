@@ -28,9 +28,9 @@ db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
         // send back the matched "whatever" to the chat
         bot.sendMessage(chatId, r);
       });
+    }
 
-
-    });
+  });
   bot.onText(/\/alta (.+)/, (msg, match) => {
     // 'msg' is the received Message from Telegram
     // 'match' is the result of executing the regexp above on the text content
