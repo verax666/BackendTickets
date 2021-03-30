@@ -23,7 +23,8 @@ db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
       const chatId = msg.chat.id;
       const resp = match[1]; // the captured "whatever"
       // send back the matched "whatever" to the chat
-      console.log(r.cat_vendedores.dataValues)
+      r.map(item => { console.log(item) })
+
     });
   });
   bot.onText(/\/alta (.+)/, (msg, match) => {
