@@ -1,62 +1,45 @@
 const db = require("../models");
-const Client = db.dbpreAlta.client;
+const Vendedor = db.dbAltCte.vendedor;
 // const token = configBotAlta.token;
 // Create and Save a new Order
 // const bot = new TelegramBot(token, { polling: true });
 const botAlta = require("../config/bot_alta.config");
 const bot = botAlta.bot;
+exports.findAll = (req, res) => {
+    Vendedor.findAll({
+        attributes: ['id_vendedor', 'nombre'],
+        paranoid: false,
+    }).then(r => {
+        res.json(r);
+    });
+};
+
 exports.create = (req, res) => {
     console.log(req.body);
-    Client.create(req.body, {
+    Vendedor.create(req.body, {
     })
         .then(client_created => {
             res.send(client_created);
             console.log("client created", client_created);
             var text = "Para: María De León Aguirre"
-                + "\nAsunto: Pre-alta de cliente"
-                + "\n\nPor medio del presente se le informa que el vendedor [ "
-                + req.body.vendedor + " ] a capturado la pre-alta \n cliente No." + client_created.dataValues.id
-                + "del cliente " + req.body.first + " " + req.body.last
-                + "\nTipo de Persona: " + req.body.tipo_persona
-                + "\n\nFavor de revisar y complementar la información requerida para su autorización"
-                + "\n\nAtentamente"
-                + "\n " + req.body.vendedor
-            bot.sendMessage("-595442811", text).then(idmsg => {
-                Client.update({ idmsgc: idmsg.message_id }, {
-                    where: { id: client_created.dataValues.id }
-                })
-            });
+                + "\n Asunto: Pre-alta de cliente"
+                + "\n Por medio del presente se le informa que el vendedor [ "
+                + req.body.vendedor + " ] a capturado la pre-alta. \nCliente No." + client_created.dataValues.id
+                + " del cliente " + req.body.first + req.body.last
+                + "\n Tipo de Persona: " + req.body.tipo_persona
+                + "\n Favor de revisar y complementar la información requerida para su autorización"
+                + "\n Atentamente"
+                + "\n" + req.body.vendedor
+            bot.sendMessage("-595442811", text);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Client."
+                    err.message || "Some error occurred while creating the Video."
             });
         });
 };
 
-exports.update = (req, res) => {
-    const id = req.params.id;
-    Client.update(req.body, {
-        where: { id: id }
-    })
-        .then(num => {
-            if (num == 1) {
-                res.send({
-                    message: "Client was updated successfully."
-                });
-            } else {
-                res.send({
-                    message: `Cannot update Client with id=${id}. Maybe Client was not found or req.body is empty!`
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error updating Order with id=" + id
-            });
-        });
-};
 // exports.findAll = (req, res) => {
 //     // const title = req.query.title;
 //     const { id_client, page, size } = req.query;

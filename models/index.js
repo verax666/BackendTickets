@@ -1,9 +1,9 @@
 const dbConfig = require("../config/db.config.js");
 
 const Sequelize = require("sequelize");
-const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-  host: dbConfig.HOST,
-  dialect: dbConfig.dialect,
+const dbpreAlta = new Sequelize(dbConfig.localpre.DB, dbConfig.localpre.USER, dbConfig.localpre.PASSWORD, {
+  host: dbConfig.localpre.HOST,
+  dialect: dbConfig.localpre.dialect,
   operatorsAliases: false,
   timezone: "-06:00",
   dialectOptions: {
@@ -17,21 +17,47 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     },
   },
   pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle
+    max: dbConfig.localpre.pool.max,
+    min: dbConfig.localpre.pool.min,
+    acquire: dbConfig.localpre.pool.acquire,
+    idle: dbConfig.localpre.pool.idle
   }
 });
 
-const db = {};
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
-
+const dbAltaCte = new Sequelize(dbConfig.localalta.DB, dbConfig.localalta.USER, dbConfig.localalta.PASSWORD, {
+  host: dbConfig.localalta.HOST,
+  dialect: dbConfig.localalta.dialect,
+  operatorsAliases: false,
+  timezone: "-06:00",
+  dialectOptions: {
+    useUTC: false, //for reading from database
+    dateStrings: true,
+    typeCast: function (field, next) { // for reading from database
+      if (field.type === 'DATETIME') {
+        return field.string()
+      }
+      return next()
+    },
+  },
+  pool: {
+    max: dbConfig.localalta.pool.max,
+    min: dbConfig.localalta.pool.min,
+    acquire: dbConfig.localalta.pool.acquire,
+    idle: dbConfig.localalta.pool.idle
+  }
+});
+const dbpre = {};
+dbpre.Sequelize = Sequelize;
+dbpre.dbpreAlta = dbpreAlta;
+const dbalta = {};
+dbalta.Sequelize = Sequelize;
+dbalta.dbAltCte = dbAltaCte;
 //---------------------------GRAABIT SECTION--------------------------------------------------
 
 //new models GRAABIT
-db.client = require("./client.model")(sequelize, Sequelize);
+dbpre.client = require("./client.model")(dbpreAlta, Sequelize);
+dbalta.vendedor = require("./vendedor.model")(dbAltaCte, Sequelize);
+
 //new realtionships Tickets ADN
 //new realtionships GRAABIT
 //ORDERS
@@ -121,6 +147,9 @@ db.client = require("./client.model")(sequelize, Sequelize);
 //   otherKey: "videoId"
 // });
 
-db.ROLES = ["user", "admin", "moderator", "premium"];
+dbpre.ROLES = ["user", "admin", "moderator", "premium"];
 
-module.exports = db;
+module.exports = {
+  dbpreAlta: dbpre,
+  dbAltCte: dbalta
+};

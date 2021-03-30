@@ -5,19 +5,32 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv")
 dotenv.config();
 const app = express();
-
+const botAlta = require("./config/bot_alta.config");
+const bot = botAlta.bot;
 const db = require("./models");
-db.sequelize.sync({ force: false }).then(() => {
+const Vendedor = db.dbAltCte.vendedor;
+
+db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
   //console.log("Drop and re-sync db.");
-  // initial();
+
 });
+db.dbAltCte.dbAltCte.sync({ force: false }).then(() => {
 
+});
+var whitelist = ['http://localhost:8100', 'http://localhost']
 
-let local = "http://localhost";
+let local = "";
 // origin: ""
 
 var corsOptions = {
-  origin: local
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      console.log(origin)
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
 };
 
 app.use(cors(corsOptions));
@@ -27,6 +40,7 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', "*");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
+
   next();
 })
 
@@ -42,6 +56,10 @@ app.get("/", (req, res) => {
 });
 //routes
 require("./routes/client.routes")(app)
+require("./routes/vendedor.routes")(app)
+
+
+
 // require('./routes/auth.routes')(app);
 // require('./routes/order.routes')(app);
 // require("./routes/restaurant.routes")(app);

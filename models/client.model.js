@@ -21,6 +21,15 @@ module.exports = (sequelize, Sequelize) => {
         solicita_cliente: {
             type: Sequelize.STRING
         },
+        limite: {
+            type: Sequelize.STRING
+        },
+        plazo: {
+            type: Sequelize.STRING
+        },
+        t_pago: {
+            type: Sequelize.INTEGER
+        },
         razon_social: {
             type: Sequelize.STRING
         },
@@ -60,6 +69,15 @@ module.exports = (sequelize, Sequelize) => {
         ine_back: {
             type: Sequelize.STRING
         },
+        autorizado: {
+            type: Sequelize.INTEGER
+        },
+        idmsgc: {
+            type: Sequelize.STRING
+        },
+        idmsgd: {
+            type: Sequelize.STRING
+        }
     }, { paranoid: true });
 
     return Client;
