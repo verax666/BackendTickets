@@ -20,14 +20,12 @@ db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
       attributes: ['id_vendedor', 'nombre'],
       paranoid: false,
     }).then(r => {
-      res.json(r);
       let ve = res.json(r);
       const chatId = msg.chat.id;
       const resp = match[1]; // the captured "whatever"
       // send back the matched "whatever" to the chat
-      ve.data.map(item => {
-        return bot.sendMessage(chatId, item.id_vendedor + " Name: " + item.nombre);
-      })
+      console.log(r.data)
+      bot.sendMessage(chatId, item.id_vendedor + " Name: " + item.nombre);
     });
   });
   bot.onText(/\/alta (.+)/, (msg, match) => {
