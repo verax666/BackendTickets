@@ -17,19 +17,15 @@ db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
 // db.dbAltCte.dbAltCte.sync({ force: false }).then(() => {
 
 // });
-var whitelist = ['http://localhost:8100', 'http://localhost', 'localhost', 'https://testconcre.herokuapp.com/']
+var whitelist = ['http://localhost:8000', 'http://localhost', 'localhost']
 
 let local = "";
 // origin: ""
 
 var corsOptions = {
   origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      console.log(origin)
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
+    callback(null, true)
+
   }
 };
 
