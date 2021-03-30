@@ -26,7 +26,7 @@ db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
       JSON.parse(r, function (k, v) {
         console.log(v)
       });
-      bot.sendMessage(chatId, item.id_vendedor + " Name: " + item.nombre);
+      bot.sendMessage(chatId, r);
     });
   });
   bot.onText(/\/alta (.+)/, (msg, match) => {
