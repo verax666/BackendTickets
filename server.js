@@ -17,7 +17,7 @@ db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
 // db.dbAltCte.dbAltCte.sync({ force: false }).then(() => {
 
 // });
-var whitelist = ['http://localhost:8100', 'http://localhost', 'localhost']
+var whitelist = ['http://localhost:8100', 'http://localhost', 'localhost', 'https://testconcre.herokuapp.com/']
 
 let local = "";
 // origin: ""
