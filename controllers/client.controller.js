@@ -1,5 +1,6 @@
 const db = require("../models");
 const Client = db.dbpreAlta.client;
+const Vendedor = db.dbAltCte.vendedor;
 // const token = configBotAlta.token;
 // Create and Save a new Order
 // const bot = new TelegramBot(token, { polling: true });
@@ -11,6 +12,7 @@ exports.create = (req, res) => {
     })
         .then(client_created => {
             res.send(client_created);
+            const nombreV = await Vendedor.findByPk({ where: { id_vendedor: req.body.vendedor } });
             console.log("client created", client_created);
             var text = "Para: María De León Aguirre"
                 + "\nAsunto: Pre-alta de cliente"
@@ -20,7 +22,7 @@ exports.create = (req, res) => {
                 + "\nTipo de Persona: " + req.body.tipo_persona
                 + "\n\nFavor de revisar y complementar la información requerida para su autorización"
                 + "\n\nAtentamente"
-                + "\n " + req.body.vendedor
+                + "\n " + nombreV.nombre
                 + "\n Revisar: https://concremovil.adn-apps.com/prospalta/detalles_prosp/" + client_created.dataValues.id
             bot.sendMessage("-595442811", text).then(idmsg => {
                 Client.update({ idmsgc: idmsg.message_id }, {
