@@ -19,7 +19,7 @@ exports.create = (req, res) => {
                 var text = "Para: María De León Aguirre"
                     + "\nAsunto: Pre-alta de cliente"
                     + "\n\nPor medio del presente se le informa que el vendedor [ "
-                    + req.body.vendedor + " ] a capturado la pre-alta \n cliente No." + client_created.dataValues.id
+                    + JSON.stringify(res.nombre, null, 2) + " ] a capturado la pre-alta \n cliente No." + client_created.dataValues.id
                     + "del cliente " + req.body.first + " " + req.body.last
                     + "\nTipo de Persona: " + req.body.tipo_persona
                     + "\n\nFavor de revisar y complementar la información requerida para su autorización"
