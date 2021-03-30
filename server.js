@@ -14,10 +14,10 @@ db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
   //console.log("Drop and re-sync db.");
 
 });
-db.dbAltCte.dbAltCte.sync({ force: false }).then(() => {
+// db.dbAltCte.dbAltCte.sync({ force: false }).then(() => {
 
-});
-var whitelist = ['http://localhost:8100', 'http://localhost']
+// });
+var whitelist = ['http://localhost:8100', 'http://localhost', 'localhost']
 
 let local = "";
 // origin: ""
