@@ -16,6 +16,9 @@ module.exports = (sequelize, Sequelize) => {
         id_usuario: {
             type: Sequelize.INTEGER
         },
+        id_msgchat: {
+            type: Sequelize.STRING
+        }
     }, { paranoid: false });
 
     return Vendedor;

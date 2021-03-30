@@ -9,10 +9,29 @@ const botAlta = require("./config/bot_alta.config");
 const bot = botAlta.bot;
 const db = require("./models");
 const Vendedor = db.dbAltCte.vendedor;
+const VendedorRoutes = db.dbAltCte.vendedor;
 
 db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
   //console.log("Drop and re-sync db.");
-  bot.onText(/\/echo (.+)/, (msg, match) => {
+  bot.onText(/\/vendedores (.+)/, (msg, match) => {
+    // 'msg' is the received Message from Telegram
+    // 'match' is the result of executing the regexp above on the text content
+    // of the message
+    VendedorRoutes.findAll = (req, res) => {
+      Vendedor.findAll({
+        attributes: ['id_vendedor', 'nombre'],
+        paranoid: false,
+      }).then(r => {
+        res.json(r);
+        const chatId = msg.chat.id;
+        const resp = match[1]; // the captured "whatever"
+        // send back the matched "whatever" to the chat
+        bot.sendMessage(chatId, r);
+      });
+
+
+    });
+  bot.onText(/\/alta (.+)/, (msg, match) => {
     // 'msg' is the received Message from Telegram
     // 'match' is the result of executing the regexp above on the text content
     // of the message
