@@ -16,7 +16,6 @@ exports.create = (req, res) => {
                 attributes: ['nombre'],
                 paranoid: false,
             }).then(res => {
-                console.log(JSON.stringify(res, null, 2));
                 var text = "Para: María De León Aguirre"
                     + "\nAsunto: Pre-alta de cliente"
                     + "\n\nPor medio del presente se le informa que el vendedor [ "
@@ -25,7 +24,7 @@ exports.create = (req, res) => {
                     + "\nTipo de Persona: " + req.body.tipo_persona
                     + "\n\nFavor de revisar y complementar la información requerida para su autorización"
                     + "\n\nAtentamente"
-                    + "\n " + req.body.vendedor
+                    + "\n " + JSON.stringify(res.nombre, null, 2)
                     + "\n Revisar: https://concremovil.adn-apps.com/prospalta/detalles_prosp/" + client_created.dataValues.id
                 bot.sendMessage("-595442811", text).then(idmsg => {
                     Client.update({ idmsgc: idmsg.message_id }, {
