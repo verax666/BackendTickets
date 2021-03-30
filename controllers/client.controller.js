@@ -13,6 +13,7 @@ exports.create = (req, res) => {
         .then(client_created => {
             res.send(client_created);
             Vendedor.findByPk(req.body.vendedor, {
+                attributes: ['nombre'],
                 paranoid: false,
             }).then(res => console.log(res));
             console.log("client created", client_created);
