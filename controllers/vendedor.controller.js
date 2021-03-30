@@ -5,6 +5,7 @@ const Vendedor = db.dbAltCte.vendedor;
 // const bot = new TelegramBot(token, { polling: true });
 const botAlta = require("../config/bot_alta.config");
 const bot = botAlta.bot;
+
 exports.findAll = (req, res) => {
     Vendedor.findAll({
         attributes: ['id_vendedor', 'nombre'],
