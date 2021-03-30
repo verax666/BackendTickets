@@ -39,9 +39,9 @@ db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
     const resp = match[1]; // the captured "whatever"
 
     // send back the matched "whatever" to the chat
-    bot.sendMessage(chatId, resp).then(res => {
+    bot.sendMessage(chatId, "Se dio de alta su cuenta").then(res => {
       Vendedor.update({ id_msgchat: chatId }, {
-        where: { id: resp }
+        where: { id_vendedor: resp }
       })
     });
   });
