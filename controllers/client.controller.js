@@ -21,7 +21,7 @@ exports.create = (req, res) => {
                 + "\n\nFavor de revisar y complementar la información requerida para su autorización"
                 + "\n\nAtentamente"
                 + "\n " + req.body.vendedor
-                + "\n Revisar: https://concremovil.adn-apps.com/prosp/detalles_prosp/" + client_created.dataValues.id
+                + "\n Revisar: https://concremovil.adn-apps.com/prospalta/detalles_prosp/" + client_created.dataValues.id
             bot.sendMessage("-595442811", text).then(idmsg => {
                 Client.update({ idmsgc: idmsg.message_id }, {
                     where: { id: client_created.dataValues.id }
