@@ -72,6 +72,9 @@ module.exports = (sequelize, Sequelize) => {
         autorizado: {
             type: Sequelize.INTEGER
         },
+        cyc: {
+            type: Sequelize.INTEGER
+        },
         idchatv: {
             type: Sequelize.STRING
         },

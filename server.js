@@ -14,7 +14,7 @@ db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
 
 
   //console.log("Drop and re-sync db.");
-  bot.onText(/\/lista (.+)/, (msg, match) => {
+  bot.onText(/^\/lista/, (msg) => {
     // 'msg' is the received Message from Telegram
     // 'match' is the result of executing the regexp above on the text content
     // of the message
@@ -23,8 +23,6 @@ db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
       paranoid: false,
     }).then(r => {
       const chatId = msg.chat.id;
-      const resp = match[1]; // the captured "whatever"
-      // send back the matched "whatever" to the chat
 
       bot.sendMessage(chatId, "Id: " + JSON.stringify(r, null, 2) + "\n Porvafor Escriba /alta su id:\n Ejemplo /alta 3")
 
