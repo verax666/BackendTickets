@@ -7,6 +7,7 @@ dotenv.config();
 const app = express();
 const botAlta = require("./config/bot_alta.config");
 const bot = botAlta.bot;
+const botVendedores = botAlta.botVendedores;
 const db = require("./models");
 const Vendedor = db.dbAltCte.vendedor;
 
@@ -14,7 +15,7 @@ db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
 
 
   //console.log("Drop and re-sync db.");
-  bot.onText(/^\/lista/, (msg) => {
+  botVendedores.onText(/^\/lista/, (msg) => {
     // 'msg' is the received Message from Telegram
     // 'match' is the result of executing the regexp above on the text content
     // of the message
@@ -24,11 +25,11 @@ db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
     }).then(r => {
       const chatId = msg.chat.id;
 
-      bot.sendMessage(chatId, "Id: " + JSON.stringify(r, null, 2) + "\n Porvafor Escriba /alta su id:\n Ejemplo /alta 3")
+      botVendedores.sendMessage(chatId, "Id: " + JSON.stringify(r, null, 2) + "\n Porvafor Escriba /alta su id:\n Ejemplo /alta 3")
 
     });
   });
-  bot.onText(/\/alta (.+)/, (msg, match) => {
+  botVendedores.onText(/\/alta (.+)/, (msg, match) => {
     // 'msg' is the received Message from Telegram
     // 'match' is the result of executing the regexp above on the text content
     // of the message
@@ -37,7 +38,7 @@ db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
     const resp = match[1]; // the captured "whatever"
 
     // send back the matched "whatever" to the chat
-    bot.sendMessage(chatId, "Se dio de alta su cuenta").then(res => {
+    botVendedores.sendMessage(chatId, "Se dio de alta su cuenta").then(res => {
       Vendedor.update({ id_msgchat: chatId }, {
         where: { id_vendedor: resp }
       })
