@@ -69,11 +69,11 @@ module.exports = (sequelize, Sequelize) => {
         ine_back: {
             type: Sequelize.STRING
         },
-        autorizado: {
+        status: {
             type: Sequelize.INTEGER
         },
-        cyc: {
-            type: Sequelize.INTEGER
+        motivo: {
+            type: Sequelize.STRING
         },
         idchatv: {
             type: Sequelize.STRING

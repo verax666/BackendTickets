@@ -1,9 +1,10 @@
 const dbConfig = require("../config/db.config.js");
 
+
 const Sequelize = require("sequelize");
-const dbpreAlta = new Sequelize(dbConfig.localpre.DB, dbConfig.localpre.USER, dbConfig.localpre.PASSWORD, {
-  host: dbConfig.localpre.HOST,
-  dialect: dbConfig.localpre.dialect,
+const dbpreAlta = new Sequelize(dbConfig.prodpre.DB, dbConfig.prodpre.USER, dbConfig.prodpre.PASSWORD, {
+  host: dbConfig.prodpre.HOST,
+  dialect: dbConfig.prodpre.dialect,
   operatorsAliases: false,
   timezone: "-06:00",
   dialectOptions: {
@@ -17,16 +18,16 @@ const dbpreAlta = new Sequelize(dbConfig.localpre.DB, dbConfig.localpre.USER, db
     },
   },
   pool: {
-    max: dbConfig.localpre.pool.max,
-    min: dbConfig.localpre.pool.min,
-    acquire: dbConfig.localpre.pool.acquire,
-    idle: dbConfig.localpre.pool.idle
+    max: dbConfig.prodpre.pool.max,
+    min: dbConfig.prodpre.pool.min,
+    acquire: dbConfig.prodpre.pool.acquire,
+    idle: dbConfig.prodpre.pool.idle
   }
 });
 
-const dbAltaCte = new Sequelize(dbConfig.localalta.DB, dbConfig.localalta.USER, dbConfig.localalta.PASSWORD, {
-  host: dbConfig.localalta.HOST,
-  dialect: dbConfig.localalta.dialect,
+const dbAltaCte = new Sequelize(dbConfig.prodalta.DB, dbConfig.prodalta.USER, dbConfig.prodalta.PASSWORD, {
+  host: dbConfig.prodalta.HOST,
+  dialect: dbConfig.prodalta.dialect,
   operatorsAliases: false,
   timezone: "-06:00",
   dialectOptions: {
@@ -40,10 +41,10 @@ const dbAltaCte = new Sequelize(dbConfig.localalta.DB, dbConfig.localalta.USER, 
     },
   },
   pool: {
-    max: dbConfig.localalta.pool.max,
-    min: dbConfig.localalta.pool.min,
-    acquire: dbConfig.localalta.pool.acquire,
-    idle: dbConfig.localalta.pool.idle
+    max: dbConfig.prodalta.pool.max,
+    min: dbConfig.prodalta.pool.min,
+    acquire: dbConfig.prodalta.pool.acquire,
+    idle: dbConfig.prodalta.pool.idle
   }
 });
 const dbpre = {};
@@ -56,6 +57,7 @@ dbalta.dbAltCte = dbAltaCte;
 
 //new models GRAABIT
 dbpre.client = require("./client.model")(dbpreAlta, Sequelize);
+dbpre.motivos = require("./cat_motivos.model")(dbpreAlta, Sequelize);
 dbalta.vendedor = require("./vendedor.model")(dbAltaCte, Sequelize);
 
 //new realtionships Tickets ADN
