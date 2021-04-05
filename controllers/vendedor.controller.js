@@ -23,13 +23,13 @@ exports.create = (req, res) => {
             res.send(client_created);
             console.log("client created", client_created);
             var text = "Para: María De León Aguirre"
-                + "\n Asunto: Pre-alta de cliente"
-                + "\n Por medio del presente se le informa que el vendedor [ "
+                + "\nAsunto: Pre-alta de cliente"
+                + "\nPor medio del presente se le informa que el vendedor [ "
                 + req.body.vendedor + " ] a capturado la pre-alta. \nCliente No." + client_created.dataValues.id
-                + " del cliente " + req.body.first + req.body.last
-                + "\n Tipo de Persona: " + req.body.tipo_persona
-                + "\n Favor de revisar y complementar la información requerida para su autorización"
-                + "\n Atentamente"
+                + "\nNombre del cliente " + req.body.first + req.body.last
+                + "\nTipo de Persona: " + req.body.tipo_persona
+                + "\nFavor de revisar y complementar la información requerida para su autorización"
+                + "\nAtentamente"
                 + "\n" + req.body.vendedor
             bot.sendMessage("-595442811", text);
         })
