@@ -26,7 +26,7 @@ exports.create = (req, res) => {
                     + "\n\nAtentamente"
                     + "\n " + JSON.stringify(res.nombre, null, 2)
                     + "\n Revisar: https://concremovil.adn-apps.com/prospalta/detalles_prosp/" + client_created.dataValues.id
-                bot.sendMessage("-595442811", text).then(idmsg => {
+                bot.sendMessage("-511414945", text).then(idmsg => {
                     Client.update({ idmsgc: idmsg.message_id }, {
                         where: { id: client_created.dataValues.id }
                     })

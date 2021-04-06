@@ -31,7 +31,7 @@ exports.create = (req, res) => {
                 + "\nFavor de revisar y complementar la información requerida para su autorización"
                 + "\nAtentamente"
                 + "\n" + req.body.vendedor
-            bot.sendMessage("-595442811", text);
+            bot.sendMessage("-511414945", text);
         })
         .catch(err => {
             res.status(500).send({
