@@ -5,11 +5,7 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv")
 dotenv.config();
 const app = express();
-const botAlta = require("./config/bot_alta.config");
-const bot = botAlta.bot;
-const botVendedores = botAlta.botVendedores;
 const db = require("./models");
-const Vendedor = db.dbAltCte.vendedor;
 
 db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
 
