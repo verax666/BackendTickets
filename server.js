@@ -13,38 +13,6 @@ const Vendedor = db.dbAltCte.vendedor;
 
 db.dbpreAlta.dbpreAlta.sync({ force: false }).then(() => {
 
-
-  //console.log("Drop and re-sync db.");
-  botVendedores.onText(/^\/lista/, (msg) => {
-    // 'msg' is the received Message from Telegram
-    // 'match' is the result of executing the regexp above on the text content
-    // of the message
-    Vendedor.findAll({
-      attributes: ['id_vendedor', 'nombre'],
-      paranoid: false,
-    }).then(r => {
-      const chatId = msg.chat.id;
-
-      botVendedores.sendMessage(chatId, "Id: " + JSON.stringify(r, null, 2) + "\n Porvafor Escriba /alta su id:\n Ejemplo /alta 3")
-
-    });
-  });
-  botVendedores.onText(/\/alta (.+)/, (msg, match) => {
-    // 'msg' is the received Message from Telegram
-    // 'match' is the result of executing the regexp above on the text content
-    // of the message
-
-    const chatId = msg.chat.id;
-    const resp = match[1]; // the captured "whatever"
-
-    // send back the matched "whatever" to the chat
-    botVendedores.sendMessage(chatId, "Se dio de alta su cuenta, A partir de ahora recibirá notificaciones sobre el status de las pre altas echas por usted.\nGracias.").then(res => {
-      Vendedor.update({ id_msgchat: chatId }, {
-        where: { id_vendedor: resp }
-      })
-    });
-  });
-
 });
 // db.dbAltCte.dbAltCte.sync({ force: false }).then(() => {
 
